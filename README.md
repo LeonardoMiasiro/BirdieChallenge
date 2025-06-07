@@ -8,6 +8,7 @@ Explicação Inicial sobre o Desenvolvimento e abordagens sobre a parte 1 e 2 do
 ```bash
 go run banks_scraper/main.go 
 ```
+---
 
 ### Pensamento e Abordagem
 
@@ -38,6 +39,7 @@ Exemplo:
 go run profile_scraper/main.go '{"name":"Nubank","city":"Sao Paulo","country":"Brazil","founded":2013,"rank":11,"profile":"https://www.forbes.com/companies/nubank/?list=worlds-best-banks"}
 
 ```
+---
 
 ### Pensamento e Abordagem
  
@@ -49,10 +51,10 @@ Para isso, similar à parte 1, foi feita uma inspeção no HTML das páginas de 
 
 ### Funcionamento
 
-- O programa recebe como entrada um JSON contendo o nome do banco e a URL do perfil.
+- O programa recebe como entrada um JSON similar ao obtido na parte 1.
 - Utiliza o pacote `net/http` para fazer uma requisição ao URL do perfil.
-- O conteúdo da página é processado com `goquery`, que busca o nome do CEO, Número de funcionário e as Listas.
-- Por fim, as informações são organizadas na estrutura BankProfile e retornadas como JSON.
+- Em seguida, o conteúdo da página é processado com `goquery`, que busca o nome do CEO, Número de funcionário e as Listas.
+- Por fim, as informações são organizadas na estrutura BankProfile e imprimidas como JSON.
 
 ---
 
@@ -76,19 +78,19 @@ type Bank struct {
 
 
 #### 2. Abertura do Arquivo HTML
-Abre o arquivo HTML local chamado banks.html. Se não for possível abrir, exibe uma mensagem de erro e encerra o programa.
+Abre o arquivo HTML local chamado 'banks.html', se não for possível abrir, exibe uma mensagem de erro e encerra o programa.
 
 ```bash
 file, err := os.Open("banks.html")  
 if err != nil {
     fmt.Println("Erro no arquivo")
-return
+    return
 }
-    defer file.Close()
+defer file.Close()
 ```
 
 #### 3. Carrega o Arquivo HTML
-Converte o conteúdo do arquivo HTML para um objeto goquery.
+Converte o conteúdo do arquivo HTML para um objeto goquery, se não for possível carregar o HTML, exibe uma mensagem de erro e encerra o programa.
 
 ```bash
 doc, err := goquery.NewDocumentFromReader(file)
@@ -178,7 +180,7 @@ type ListProfile struct {
 ```
 
 #### 2. Recebe o JSON de entrada
-Recebe uma string JSON com os dados do banco e atribui os dados na estrutura BankIn
+Recebe uma string JSON com os dados do banco e atribui os dados na estrutura BankIn, se não for possível atribuir a estruturar, exibe uma mensagem de erro e encerra o programa.
 
 ```bash
 inputJSON := os.Args[1]
@@ -192,7 +194,7 @@ if err != nil {
 ```
 
 #### 3. Requisição HTTP para o perfil do banco
-Faz uma requisição GET para a URL do perfil do banco
+Faz uma requisição GET para a URL do perfil do banco, se não for possível fazer a requisição, exibe uma mensagem de erro e encerra o programa.
 
 ```bash
 req, err := http.Get(bank.Profile)
@@ -204,7 +206,7 @@ defer req.Body.Close()
 ```
 
 #### 4. Carregamento do HTML
-Transforma a resposta da requisição em um objeto goquery.
+Carrega a resposta da requisição e transforma em um objeto goquery, se não for carregar o HTML, exibe uma mensagem de erro e encerra o programa.
 
 ```bash
 doc, err := goquery.NewDocumentFromReader(req.Body)
