@@ -36,7 +36,7 @@ go run profile_scraper/main.go 'JSON-do-Banco'
 Exemplo:
 
 ```bash
-go run profile_scraper/main.go '{"name":"Nubank","city":"Sao Paulo","country":"Brazil","founded":2013,"rank":11,"profile":"https://www.forbes.com/companies/nubank/?list=worlds-best-banks"}
+go run profile_scraper/main.go '{"name":"Nubank","city":"Sao Paulo","country":"Brazil","founded":2013,"rank":11,"profile":"https://www.forbes.com/companies/nubank/?list=worlds-best-banks"}'
 
 ```
 ---
